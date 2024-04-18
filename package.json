@@ -1,0 +1,38 @@
+{
+  "name": "discord-clone",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "lint:check": "next lint --check",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.371.0",
+    "next": "14.2.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.2",
+    "husky": "^9.0.11",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
