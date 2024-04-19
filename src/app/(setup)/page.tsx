@@ -7,7 +7,7 @@ export default async function SetupProfilePage() {
   const profile = await initializedProfile();
 
   const server = await db.server.findFirst({
-    where: { members: { some: { id: profile.id } } },
+    where: { members: { some: { profileId: profile.id } } },
   });
 
   if (server) {
