@@ -10,6 +10,6 @@ export function ModalProvider() {
   }, []);
 
   if (!isMounted) return null;
-  
+
   return <CreateServerModal />;
 }
