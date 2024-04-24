@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["uploadthing.com", "utfs.io"],
+    remotePatterns: ["https://uploadthing.com/*", "https://utfs.io/*"],
   },
+  experimental: { typedRoutes: true },
 };
 
 export default nextConfig;
