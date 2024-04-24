@@ -61,7 +61,10 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("createChannel", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white"
+          >
             <span>Create Channel</span>
             <PlusCircle className="ml-auto size-4" />
           </DropdownMenuItem>
