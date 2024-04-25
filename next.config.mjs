@@ -7,9 +7,7 @@ const nextConfig = {
       { protocol: "https", hostname: "utfs.io" },
     ],
   },
-  experimental: {
-    turbo: { resolveExtensions: [".js", ".jsx", ".ts", ".tsx", ".json", ".mjs", ".cjs"] },
-  },
+  experimental: { typedRoutes: true },
 };
 
 export default nextConfig;
