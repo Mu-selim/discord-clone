@@ -25,7 +25,7 @@ export function NavigationItem({ id, imageURL, name }: NavigationItemProps) {
             "absolute left-0 w-1 rounded-r-full bg-primary transition-all",
 
             params?.serverId !== id && "group-hover:h-5",
-            params?.serverId === id ? "h-9" : "h-8"
+            params?.serverId === id ? "h-9" : "h-2"
           )}
         />
         <div
