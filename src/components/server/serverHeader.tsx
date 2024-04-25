@@ -71,13 +71,19 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
         )}
         {isAdmin && <DropdownMenuSeparator />}
         {isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("deleteServer", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white"
+          >
             <span>Delete Server</span>
             <Trash className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {!isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("leaveServer", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white"
+          >
             <span>Leave Server</span>
             <LogOut className="ml-auto size-4" />
           </DropdownMenuItem>
