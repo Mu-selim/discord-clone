@@ -1,5 +1,7 @@
 "use client";
 
+import { useModal } from "@/hooks/useModalStore";
+
 import { ServerWithMembersWithProfile } from "@/types";
 import { MemberRole } from "@prisma/client";
 
@@ -18,6 +20,7 @@ type ServerHeaderProps = {
 };
 
 export function ServerHeader({ server, role }: ServerHeaderProps) {
+  const { onOpen } = useModal();
   const isOwner = role === MemberRole.OWNER;
   const isAdmin = isOwner || role === MemberRole.ADMIN;
 
@@ -31,38 +34,56 @@ export function ServerHeader({ server, role }: ServerHeaderProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 space-y-0.5 text-xs font-medium text-black dark:text-neutral-400">
         {isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm text-indigo-600 transition hover:outline-none dark:text-indigo-400 hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("invite", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-indigo-600 transition hover:outline-none dark:text-indigo-400 hover:dark:text-white"
+          >
             <span>Invite People</span>
             <UserPlus className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("editServer", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white"
+          >
             <span>Server Settings</span>
             <Settings className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("members", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white"
+          >
             <span>Manage Members</span>
             <Users className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("createChannel", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm transition hover:outline-none hover:dark:text-white"
+          >
             <span>Create Channel</span>
             <PlusCircle className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {isAdmin && <DropdownMenuSeparator />}
         {isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("deleteServer", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white"
+          >
             <span>Delete Server</span>
             <Trash className="ml-auto size-4" />
           </DropdownMenuItem>
         )}
         {!isOwner && (
-          <DropdownMenuItem className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white">
+          <DropdownMenuItem
+            onClick={() => onOpen("leaveServer", { server })}
+            className="flex cursor-pointer items-center px-3 py-2 text-sm text-rose-500 transition hover:outline-none hover:dark:text-white"
+          >
             <span>Leave Server</span>
             <LogOut className="ml-auto size-4" />
           </DropdownMenuItem>
