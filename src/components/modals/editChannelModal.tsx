@@ -33,31 +33,33 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType),
 });
 
-export function CreateChannelModal() {
+export function EditChannelModal() {
   const router = useRouter();
   const params = useParams();
   const { isOpen, type, onClose, data } = useModal();
-  const { channelType } = data;
+  const { channel, server } = data;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", type: channelType || ChannelType.TEXT },
+    defaultValues: { name: channel?.name || "", type: channel?.type || ChannelType.TEXT },
   });
 
   const isLoading = form.formState.isSubmitting;
-  const isModalOpen = isOpen && type === "createChannel";
+  const isModalOpen = isOpen && type === "editChannel";
 
   useEffect(() => {
-    if (channelType) form.setValue("type", channelType);
-    else form.setValue("type", ChannelType.TEXT);
-  }, [channelType, form]);
+    if (channel) {
+      form.setValue("name", channel.name);
+      form.setValue("type", channel.type);
+    }
+  }, [form, channel]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: "/api/channels",
-        query: { serverId: params?.serverId },
+        url: `/api/channels/${channel?.id}`,
+        query: { serverId: server?.id },
       });
-      await axios.post(url, values);
+      await axios.patch(url, values);
 
       form.reset();
       router.refresh();
@@ -76,9 +78,9 @@ export function CreateChannelModal() {
     <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
       <DialogContent className="overflow-hidden bg-white p-0 text-black">
         <DialogHeader className="px-6 pt-8">
-          <DialogTitle className="text-center text-2xl font-bold">Create Channel</DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">Edit Channel</DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Channels are where your members communicate. They’re best when organized around a topic.
+            you can edit the channel name and type.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -130,7 +132,7 @@ export function CreateChannelModal() {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create Channel"}
+                {isLoading ? "Saving..." : "Save"}
               </Button>
             </DialogFooter>
           </form>
