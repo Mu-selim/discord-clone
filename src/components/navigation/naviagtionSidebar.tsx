@@ -15,7 +15,7 @@ export async function NavigationSidebar() {
   const servers = await db.server.findMany({ where: { members: { some: { profileId: profile.id } } } });
 
   return (
-    <div className="flex h-full w-full flex-col items-center space-y-4 border-e py-3 text-primary shadow dark:border-e-0 dark:bg-[#1e1f22]">
+    <div className="flex h-full w-full flex-col items-center space-y-4 border-e py-3 text-primary shadow dark:border-e-0 bg-[#e9eaec] dark:bg-[#1e1f22]">
       {/* Create a new server */}
       <NavigationActions />
       <Separator className="mx-auto h-0.5 w-10 rounded-md bg-zinc-300 dark:bg-zinc-700" />
