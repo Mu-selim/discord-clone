@@ -47,7 +47,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
           <ActionTooltip label="Edit">
             <Edit className="hidden size-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300" />
           </ActionTooltip>
-          <ActionTooltip label="Edit">
+          <ActionTooltip label="Delete">
             <Trash className="hidden size-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300" />
           </ActionTooltip>
         </div>
