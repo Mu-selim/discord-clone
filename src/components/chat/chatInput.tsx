@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 
 import { Form, FormControl, FormItem, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus, Smile } from "lucide-react";
+import { Plus } from "lucide-react";
+import { EmojiPicker } from "@/components/emojiPicker";
 
 type ChatInputProps = {
   apiURL: string;
@@ -67,7 +68,7 @@ export function ChatInput({ apiURL, query, name, type }: ChatInputProps) {
                     placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
                   />
                   <div className="absolute right-8 top-7">
-                    <Smile className="" />
+                    <EmojiPicker onChange={(e: string) => field.onChange(`${field.value}${e}`)}/>
                   </div>
                 </div>
               </FormControl>
