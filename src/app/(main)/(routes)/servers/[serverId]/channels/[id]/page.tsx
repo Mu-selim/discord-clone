@@ -27,7 +27,7 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
   if (!channel || !member) return redirect("/");
 
   return (
-    <div className="h-full w-full bg-white dark:bg-[#313338] flex flex-col">
+    <div className="flex h-full w-full flex-col bg-white dark:bg-[#313338]">
       <ChatHeader serverId={channel.serverId} name={channel.name} type="channel" />
       <div className="flex-1">Future Messages</div>
       <ChatInput
