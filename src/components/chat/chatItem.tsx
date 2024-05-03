@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useModal } from "@/hooks/useModalStore";
+import { useParams, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -58,12 +59,13 @@ export function ChatItem({
   socketQuery,
 }: ChatItemProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
+  const params = useParams();
   const { onOpen } = useModal();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { content: content },
   });
-  console.log(form.getValues("content"));
 
   useEffect(() => {
     const handleKeyDown = (e: any) => {
@@ -89,6 +91,12 @@ export function ChatItem({
   const isPDF = fileURL && fileType === "pdf";
   const isImage = fileURL && !isPDF;
 
+  const onMemberClick = () => {
+    if (member.id === currentMember.id) return;
+
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
@@ -106,13 +114,15 @@ export function ChatItem({
   return (
     <div className="group relative flex w-full items-center p-4 transition hover:bg-black/5">
       <div className="group flex w-full items-start gap-x-2">
-        <div className="cursor-pointer transition hover:drop-shadow-md">
+        <button type="button" onClick={onMemberClick} className="cursor-pointer transition hover:drop-shadow-md">
           <UserAvatar name={member.profile.name} src={member.profile.imageURL} />
-        </div>
+        </button>
         <div className="flex w-full flex-col">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center">
-              <p className="cursor-pointer text-sm font-semibold hover:underline">{member.profile.name}</p>
+              <p onClick={onMemberClick} className="cursor-pointer text-sm font-semibold hover:underline">
+                {member.profile.name}
+              </p>
               <ActionTooltip label={member.role}>{roleIconMap[member.role]}</ActionTooltip>
             </div>
             <span className="text-xs text-zinc-500 dark:text-zinc-400">{timestamp}</span>
