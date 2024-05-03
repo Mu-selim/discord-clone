@@ -44,7 +44,7 @@ export function ChatMessages({
     paramKey,
     paramValue,
   });
-  useChatSocket({queryKey, addKey, updateKey, })
+  useChatSocket({ queryKey, addKey, updateKey });
 
   if (isFetching) return <FetchingStatusMessage status="loading" />;
   if (status === "error") return <FetchingStatusMessage status="error" />;
